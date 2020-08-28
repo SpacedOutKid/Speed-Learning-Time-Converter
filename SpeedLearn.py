@@ -1,31 +1,28 @@
 from tkinter import *
-# * This is used for highlighting
-# ? Used for Questions
-# ! Used for Warnings
-# TODO used for Todo items
-# // used for strike throughs 
-"""
-TODOs
-- Function to link to the calc button
-- Function should delete previous entrys & display results
-- Function Should convert the hours into minutes (60 * Hours)
-- Function should add up the total minutes 
-- Function should divide the total minutes by the playback time (mins / playback speed)
-- Function should convert the new minutes to display the hours or minutes it should now take 
-"""
 
+def showResults():
+    
+    # * Gets the Entry Boxes' contents & Converts them
+    hoursValue = int(hoursEntry.get())
+    minutesValue = int(minutesEntry.get())
+    playbackSpeedValue = eval(playbackSpeedEntry.get())
+    
 
-
-
-
-
-
-
-
-
-
-
-
+    # * Converts the time into minutes based on the playback speed and back into hours
+    minutesTotal = minutesValue + (hoursValue * 60) # Adds up the total minutes using the hours value & minutes Value
+    newMinuteTotal = minutesTotal / playbackSpeedValue
+    newTime = newMinuteTotal / 60
+    
+    # * Creates the result to show and sets it
+    result = (f'The estimated time you should finish at based on your inputs is {newTime} (hours.mintues)')
+    results.set(result)
+    
+      # * These 3 lines delete the entrys upon showing the results
+    hoursEntry.delete(0, END)
+    minutesEntry.delete(0, END)
+    playbackSpeedEntry.delete(0, END)
+    
+    
 
 # * USER INTERFACE: This is the GUI for the program to
 root = Tk()
@@ -61,19 +58,15 @@ playbackSpeedEntry.grid(row = 2, column = 2, columnspan = 5, pady = 20, padx = 4
 playbackSpeedLabel = Label(text = "(e.g. 1.5)", font = ('Agency FB', 12, 'italic'))
 playbackSpeedLabel.grid(row = 2, column = 2, columnspan = 5, pady = 2, padx = 105, sticky = SW)
 
-calculateBtn = Button(text = 'CALCULATE', font = ('Agency FB', 14,' bold'))
+calculateBtn = Button(text = 'CALCULATE', command = showResults, font = ('Agency FB', 14,' bold'))
 calculateBtn.grid(row = 3, columnspan = 5, column = 1, padx = 95, pady = 30,rowspan = 3, ipadx = 120, sticky = W)
 
-resultEnt = Entry(state = 'readonly', font = ('Agency FB', 12))
+results = StringVar()
+resultEnt = Entry(state = 'readonly', text = results, font = ('Agency FB', 12))
 resultEnt.grid(row = 6, columnspan = 5, column = 1, padx = 5, pady = 25, ipadx = 180, sticky = SW)
 
 resultsLabel = Label(text = 'Results', font = ('Agency FB', 14, 'bold'))
 resultsLabel.grid(row = 6, columnspan = 5, column = 1, padx = 55, ipadx = 180, sticky = NW)
-
-
-
-
-
 
 
 
