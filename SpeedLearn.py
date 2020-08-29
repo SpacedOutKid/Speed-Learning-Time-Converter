@@ -1,4 +1,6 @@
 from tkinter import *
+import datetime
+
 
 def showResults():
     
@@ -11,16 +13,14 @@ def showResults():
     # * Converts the time into minutes based on the playback speed and back into hours
     minutesTotal = minutesValue + (hoursValue * 60) # Adds up the total minutes using the hours value & minutes Value
     newMinuteTotal = minutesTotal / playbackSpeedValue
-    newTime = newMinuteTotal / 60
+    newTime = datetime.timedelta(minutes=(newMinuteTotal))
+    newTimeConverted = ("%s" % str(newTime).split('.')[0] )
     
     # * Creates the result to show and sets it
-    result = (f'The estimated time you should finish at based on your inputs is {newTime} (hours.mintues)')
-    results.set(result)
+    result1 = (f'The estimated time you should finish at based on your inputs is ')
+    results.set(result1 + newTimeConverted)
     
       # * These 3 lines delete the entrys upon showing the results
-    hoursEntry.delete(0, END)
-    minutesEntry.delete(0, END)
-    playbackSpeedEntry.delete(0, END)
     
     
 
@@ -37,13 +37,15 @@ titleLabel.grid(row = 0, column = 0, sticky = N, columnspan = 5, padx = 10, pady
 normalPlaybackSpeedLabel = Label(text = 'What is the Normal Playback Time', font = ('Agency FB', 14), relief = GROOVE)
 normalPlaybackSpeedLabel.grid(row = 1, pady = 30, column = 1, columnspan = 1, padx = 5, sticky = W)
 
-
-hoursEntry = Entry(width = 10)
+v = IntVar()
+v2 = IntVar()
+hoursEntry = Entry(width = 10, text = v)
+v.set(0)
 hoursEntry.grid(row = 1, column = 2, columnspan = 1, pady = 20, padx = 10)
 hoursLabel = Label(text = "Hours", font = ('Agency FB', 12, 'italic'))
 hoursLabel.grid(row = 1, column = 2, columnspan = 1, pady = 2, padx = 10, sticky = S)
 
-minutesEntry = Entry(width = 10)
+minutesEntry = Entry(width = 10, text = v2)
 minutesEntry.grid(row = 1, column = 3, columnspan = 1, pady = 20, padx = 10)
 minutesLabel = Label(text = "Minutes", font = ('Agency FB', 12, 'italic'))
 minutesLabel.grid(row = 1, column = 3, columnspan = 1, pady = 2, padx = 10, sticky = S)
